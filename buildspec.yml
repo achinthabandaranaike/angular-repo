@@ -1,0 +1,33 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      nodejs: 20
+    commands:
+    #you also need to install packages or frameworks needed to build ur code in the install phase.
+    #install angular CLI to build our code in the build phase. Commands executed as list items in the order u want to be executed.
+    - npm install -g @angular/cli@17 #angular 17 cli version
+
+  pre_build:
+    #install our project dependancies
+    commands:
+    - npm install
+  build:
+    commands:
+    - ng build -c production #build an angular application in prod envirenment
+    #build command will build the code and produce the deployable files for our project.
+    #but they will still be in the temporary build container and will be lost unless we export them before finishing the build.
+    #hence u should define the build artifact for them to use in the deploy action later.
+artifacts:
+  #now "ng build"command executed in the build phase. will place all build artifacts under a specific local folder in the buil envirenment, which was set in the angular project settings.
+  #Therefore we must tell AWS Codebuild to get all files and folders from that folder.
+  #How we can do this? Firstly we will provide this folder by defining the "base-directory"key under "artifacts"
+  base-directory: dist/my-angular-project
+  #this path is specific to our sample angular applications local settings. it is not about where u deploy later
+  #for our example u should type its value like this. In ur own projects your build commands will most probably produce the deployable files in other local folders.
+  #therefore u will need to provide those paths to the base directory keys in ur own projects 
+
+  #u must define which files will be included from this folder using the "files"attribute
+  files:
+  #u can define a specific file under this folder. how ever we need all files and folders recusivly under this folder.
+  - '**/*'
