@@ -14,7 +14,12 @@ phases:
     - npm install
   build:
     commands:
+    - echo 'build error simulation!'
+    - exit 1 #this command will exit with status code 1 wchich is non-zero. And we expect our build to fail in the buld phase before executing the main buil command
     - ng build -c production #build an angular application in prod envirenment
+    finally:
+    #which are executed regardless of whether the phase succeed or fails.
+    - echo 'This is the finally block execution' # we will see this msg in our logs if it is executed.
     #build command will build the code and produce the deployable files for our project.
     #but they will still be in the temporary build container and will be lost unless we export them before finishing the build.
     #hence u should define the build artifact for them to use in the deploy action later.
