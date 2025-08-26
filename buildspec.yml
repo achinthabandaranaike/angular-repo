@@ -14,8 +14,8 @@ phases:
     - npm install
   build:
     commands:
-    - echo 'build error simulation!'
-    - exit 1 #this command will exit with status code 1 wchich is non-zero. And we expect our build to fail in the buld phase before executing the main buil command
+    -  ###echo 'build error simulation!'
+    -  ### exit 1 #this command will exit with status code 1 wchich is non-zero. And we expect our build to fail in the buld phase before executing the main buil command
     - ng build -c production #build an angular application in prod envirenment
     finally:
     #which are executed regardless of whether the phase succeed or fails.
