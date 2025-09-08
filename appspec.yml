@@ -5,7 +5,7 @@ files:
 #Bcs we specified it as the input artifact on the deploy action. 
 #then we intsall the revision contect someware in the ec2 instance 
 # e files and folders copy krnna thama Files key eka use karanne #this is like dictionary
-- source: / #it will take relative path of the file or folder in the revision that will be copied.
+- source: dist/my-angular-project/ #/ #it will take relative path of the file or folder in the revision that will be copied.
   #if u provide "/" it will copy all files and folders from the revision. just like we copied all files and folders from the build artifact to production s3 bucket.
   #it copy all files and folders from the build artifacts.
   destination: /var/www/my-angular-project #provide whre to copy them on the ec2 instance.
