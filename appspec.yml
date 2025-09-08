@@ -1,0 +1,29 @@
+version: 0.0
+os: linux #deploy ec2 OS
+files:
+#codedeploy agent will download the deployement revision from s3.in our case it wiull be Build Artifact.
+#Bcs we specified it as the input artifact on the deploy action. 
+#then we intsall the revision contect someware in the ec2 instance 
+# e files and folders copy krnna thama Files key eka use karanne #this is like dictionary
+- source: / #it will take relative path of the file or folder in the revision that will be copied.
+  #if u provide "/" it will copy all files and folders from the revision. just like we copied all files and folders from the build artifact to production s3 bucket.
+  #it copy all files and folders from the build artifacts.
+  destination: /var/www/my-angular-project #provide whre to copy them on the ec2 instance.
+permissions:
+#how to set files and folders on ur ec2 (optional)
+- object: /var/www/my-angular-project #object key which takes the file or folder u set the permission for its value.
+  #this define permissions for our deployment folder.
+  pattern: '**' # this means all files and folders
+  mode: '0755' # mode is chmod in LINUX. 0755 means provide read write execution permissions to the owner and everyone
+  owner: root
+  group: root
+  type:
+  #can spesify this permissions apply only files, folders or both.
+  - file
+  - directory
+hooks:
+  #define scripts. can define lifecycle evenets
+  ApplicationStart:
+  #for restart our web server
+  - location: deploy-scripts/application-start-hook.sh #script location
+    timeout: 300
