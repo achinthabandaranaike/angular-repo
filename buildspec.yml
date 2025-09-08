@@ -27,7 +27,7 @@ artifacts:
   #now "ng build"command executed in the build phase. will place all build artifacts under a specific local folder in the buil envirenment, which was set in the angular project settings.
   #Therefore we must tell AWS Codebuild to get all files and folders from that folder.
   #How we can do this? Firstly we will provide this folder by defining the "base-directory"key under "artifacts"
-  base-directory: dist/my-angular-project
+  ##base-directory: dist/my-angular-project
   #this path is specific to our sample angular applications local settings. it is not about where u deploy later
   #for our example u should type its value like this. In ur own projects your build commands will most probably produce the deployable files in other local folders.
   #therefore u will need to provide those paths to the base directory keys in ur own projects 
@@ -35,4 +35,6 @@ artifacts:
   #u must define which files will be included from this folder using the "files"attribute
   files:
   #u can define a specific file under this folder. how ever we need all files and folders recusivly under this folder.
-  - '**/*'
+  - 'dist/my-angular-project/**/*'
+  - 'appspec.yml'
+  - 'deploy-scripts/**/*'
